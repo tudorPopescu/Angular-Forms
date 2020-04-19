@@ -30,7 +30,7 @@
 
     <div class="form-group">
       <label>Email</label>
-      <input name="email" #email="ngModel" type="text" class="form-control" [(ngModel)]="userModel.email" required pattern="^/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/"/>
+      <input name="email" #email="ngModel" type="text" class="form-control" [(ngModel)]="userModel.email" required pattern="^/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" [class.is-invalid]="email.invalid && email.touched"/>
 
       <!-- Multiple error message validation -->
       <div *ngIf="email.errors && (email.touched)">
@@ -62,10 +62,19 @@
 
     <div class="form-group">
       <label class="form-check-label">Select topic</label>
-      <select name="topic" class="custom-select" [(ngModel)]="userModel.topic">
-        <option value="">I am interested in</option>
+      <select
+        (blur)="validateTopic(topic.value)"
+        (change)="validateTopic(topic.value)"
+        name="topic"
+        class="custom-select"
+        #topic="ngModel"
+        [class.is-invalid]="topicHasError && topic.touched"
+        [(ngModel)]="userModel.topic"
+      >
+        <option value="default">I am interested in</option>
         <option *ngFor="let topic of topics">{{topic}}</option>
       </select>
+      <small class="text-danger" [class.d-none]="!topicHasError|| topic.untouched">Please choose a topic</small>
     </div>
 
     <div class="mb-3">
