@@ -3,6 +3,8 @@
 
   <!-- on TDF we have 3  directives: ngForm, ngModel and ngModelGroup-->
   <pre>{{userForm.value | json}}</pre>
+  <hr/>
+  <pre>{{userModel | json}}</pre>
 
   <!-- Add template reference variable on the form -->
   <form #userForm="ngForm">
@@ -10,46 +12,26 @@
       <label>Name</label>
       <!-- add ngModel directive to have access to the input information -->
       <!-- ngModel must have the name attribute -->
-      <input name="username" type="text" class="form-control" ngModel/>
-    </div>
-
-    <!-- use ngModelGroup to group the form fields together -->
-    <div ngModelGroup="address">
-      <div class="form-grouup">
-        <label>Street</label>
-        <input name="street" type="text" class="form-control" ngModel/>
-      </div>
-
-      <div class="form-grouup">
-        <label>City</label>
-        <input name="city" type="text" class="form-control" ngModel/>
-      </div>
-
-      <div class="form-grouup">
-        <label>State</label>
-        <input name="state" type="text" class="form-control" ngModel/>
-      </div>
-
-      <div class="form-grouup">
-        <label>Postal group</label>
-        <input name="postalCode" type="number" class="form-control" ngModel/>
-      </div>
+      <!-- bind ngModel to the userModel from the class -->
+      <!-- [ngModel] = one way binding from class to the view -->
+      <!-- [(ngModel)] = two way binding from class to the view and back to the class-->
+      <input name="username" type="text" class="form-control" [(ngModel)]="userModel.name"/>
     </div>
 
     <div class="form-group">
       <label>Email</label>
-      <input name="email" type="text" class="form-control" ngModel/>
+      <input name="email" type="text" class="form-control" [(ngModel)]="userModel.email"/>
     </div>
 
     <div class="form-group">
       <label>Phone</label>
-      <input name="phone" type="tel" class="form-control" ngModel/>
+      <input name="phone" type="tel" class="form-control" [(ngModel)]="userModel.phone"/>
     </div>
 
     <div class="form-group">
       <label class="form-check-label">Select topic</label>
-      <select name="topic" class="custom-select" ngModel>
-        <option selected>I am interested in</option>
+      <select name="topic" class="custom-select" [(ngModel)]="userModel.topic">
+        <option value="">I am interested in</option>
         <option *ngFor="let topic of topics">{{topic}}</option>
       </select>
     </div>
@@ -57,17 +39,17 @@
     <div class="mb-3">
       <label>Time preference</label>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="timePreference" value="morning" ngModel/>
+        <input class="form-check-input" type="radio" name="timePreference" value="morning" [(ngModel)]="userModel.timePreference"/>
         <label class="form-check-label">Morning (9AM - 12PM)</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="timePreference" value="evening" ngModel/>
+        <input class="form-check-input" type="radio" name="timePreference" value="evening" [(ngModel)]="userModel.timePreference"/>
         <label class="form-check-label">Evening (5PM - 8PM)</label>
       </div>
     </div>
 
     <div class="form-check mb-3">
-      <input name="subscribe" class="form-check-input" type="checkbox" ngModel/>
+      <input name="subscribe" class="form-check-input" type="checkbox" [(ngModel)]="userModel.subscribe"/>
       <label class="form-check-label">Send me promotional offers</label>
     </div>
 
