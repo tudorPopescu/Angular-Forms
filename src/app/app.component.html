@@ -1,11 +1,6 @@
 <div class="container-fluid mb-5">
   <h1>Template driven forms</h1>
 
-  <!-- on TDF we have 3  directives: ngForm, ngModel and ngModelGroup-->
-  <pre>{{userForm.value | json}}</pre>
-  <hr/>
-  <pre>{{userModel | json}}</pre>
-
   <!-- Add template reference variable on the form -->
   <form #userForm="ngForm">
     <div class="form-group">
@@ -15,8 +10,19 @@
       <!-- bind ngModel to the userModel from the class -->
       <!-- [ngModel] = one way binding from class to the view -->
       <!-- [(ngModel)] = two way binding from class to the view and back to the class-->
-      <input name="username" type="text" class="form-control" [(ngModel)]="userModel.name"/>
+      <!-- [class.is-invalid]="name.invalid && name.touched" applies the is-invalid class based on the name.invalid condition -->
+      <input
+        name="username"
+        #name="ngModel"
+        type="text" required
+        [class.is-invalid]="name.invalid && name.touched"
+        class="form-control"
+        [(ngModel)]="userModel.name"/>
     </div>
+
+    <pre>Untouched class: {{name.untouched}}</pre>
+    <pre>Pristine class: {{name.pristine}}</pre>
+    <pre>Invalid class: {{name.invalid}}</pre>
 
     <div class="form-group">
       <label>Email</label>
@@ -25,7 +31,15 @@
 
     <div class="form-group">
       <label>Phone</label>
-      <input name="phone" type="tel" class="form-control" [(ngModel)]="userModel.phone"/>
+      <input
+        name="phone"
+        #phone="ngModel"
+        type="tel"
+        class="form-control"
+        [(ngModel)]="userModel.phone"
+        pattern="^\d{10}$"
+        [class.is-invalid]="phone.invalid && phone.touched"
+      />
     </div>
 
     <div class="form-group">
