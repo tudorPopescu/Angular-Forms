@@ -1,8 +1,12 @@
 <div class="container-fluid mb-5">
   <h1>Template driven forms</h1>
 
+  <!-- bind the error message for the server -->
+  <div class="aler alert-danger" *ngIf="errorMsg">{{errorMsg}}</div>
+
   <!-- Add template reference variable on the form -->
-  <form #userForm="ngForm">
+  <!-- novalidate = prevents browser validation to kick in when clicking the submit btn -->
+  <form #userForm="ngForm" *ngIf="!submitted" (ngSubmit)="onSubmit()" novalidate>
     <div class="form-group">
       <label>Name</label>
       <!-- add ngModel directive to have access to the input information -->
@@ -30,12 +34,11 @@
 
     <div class="form-group">
       <label>Email</label>
-      <input name="email" #email="ngModel" type="text" class="form-control" [(ngModel)]="userModel.email" required pattern="^/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/" [class.is-invalid]="email.invalid && email.touched"/>
+      <input name="email" #email="ngModel" type="text" class="form-control" [(ngModel)]="userModel.email" required [class.is-invalid]="email.invalid && email.touched"/>
 
       <!-- Multiple error message validation -->
       <div *ngIf="email.errors && (email.touched)">
         <small class="text-danger" *ngIf="email.errors.required">Email address is required.</small>
-        <small class="text-danger" *ngIf="email.errors.pattern">Pattern is not fullfilled.</small>
       </div>
     </div>
 
@@ -94,6 +97,7 @@
       <label class="form-check-label">Send me promotional offers</label>
     </div>
 
-    <button class="btn btn-primary" type="submit">Submit Form</button>
+    <!-- Form validation disable the button based on the condition -->
+    <button [disabled]="userForm.form.invalid || topicHasError" class="btn btn-primary" type="submit">Submit Form</button>
   </form>
 </div>
