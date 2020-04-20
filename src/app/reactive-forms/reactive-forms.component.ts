@@ -19,6 +19,21 @@ export class ReactiveFormsComponent implements OnInit {
     })
   });
 
+  loadApiData() {
+    // setValue() is strict when populating fields (all fields must be passed)
+    // patchValue() is not strict when populating fields (optional fields must be passed)
+    this.registrationForm.setValue({
+      userName: 'Bruce',
+      password: 'test',
+      confirmPassword: 'test',
+      address: {
+        city: 'Suceava',
+        state: 'Romania',
+        postalCode: 720207
+      }
+    })
+  }
+
   constructor() { }
 
   ngOnInit(): void {
