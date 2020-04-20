@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import FormGroup to initialize RF (reactive forms)
 // import Validator for build-in validation on the forms
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 // import custom form validation function file
 import { forbiddenNameValidator } from '../shared/user-name.validator';
 import { passwordValidator } from '../shared/password.validator';
@@ -24,6 +24,14 @@ export class ReactiveFormsComponent implements OnInit {
     return this.registrationForm.get('email');
   }
 
+  get alternateEmails() {
+    return this.registrationForm.get('alternateEmails') as FormArray;
+  }
+
+  addAlternateEmail() {
+    this.alternateEmails.push(this.fb.control(''));
+  }
+
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -39,7 +47,8 @@ export class ReactiveFormsComponent implements OnInit {
         city: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(7), forbiddenNameValidator(/password/)]],
         state: [''],
         postalCode: []
-      })
+      }),
+      alternateEmails: this.fb.array([])
     }, {validator: passwordValidator});
 
     this.registrationForm.get('subscribe').valueChanges
