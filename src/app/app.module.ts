@@ -4,8 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// import FormsModule
-import { FormsModule } from '@angular/forms';
+// import FormsModule, ReactiveFormsModule (for reactive forms)
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // import HttpClientModule
 import { HttpClientModule } from '@angular/common/http';
@@ -22,6 +22,7 @@ import { TemplatedFormsComponent } from './templated-forms/templated-forms.compo
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ],
   providers: [],
