@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 // import custom form validation function file
 import { forbiddenNameValidator } from '../shared/user-name.validator';
+import { passwordValidator } from '../shared/password.validator';
 
 @Component({
   selector: 'app-reactive-forms',
@@ -19,6 +20,7 @@ export class ReactiveFormsComponent implements OnInit {
 
   registrationForm = this.fb.group({
     userName: ['', Validators.required],
+    // perform cross field validation on password and confirm password fields
     password: [''],
     confirmPassword: [''],
     address: this.fb.group({
@@ -27,7 +29,7 @@ export class ReactiveFormsComponent implements OnInit {
       state: [''],
       postalCode: []
     })
-  });
+  }, {validator: passwordValidator});
 
   loadApiData() {
     // setValue() is strict when populating fields (all fields must be passed)
