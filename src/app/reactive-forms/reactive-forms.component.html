@@ -37,6 +37,7 @@
           <small class="text-danger" *ngIf="registrationForm.get('address.city').errors['required']">City is required</small>
           <small class="text-danger" *ngIf="registrationForm.get('address.city').errors['minlength']">City must be at least 3 characthers long</small>
           <small class="text-danger" *ngIf="registrationForm.get('address.city').errors['maxlength']">City must be maximum 7 characthers long</small>
+          <small class="text-danger" *ngIf="registrationForm.get('address.city').errors['forbiddenName']">{{registrationForm.get('address.city').value}} City not allowed</small>
         </div>
       </div>
 
