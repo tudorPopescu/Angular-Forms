@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 // import FormGroup to initialize RF (reactive forms)
-import { FormBuilder } from '@angular/forms';
+// import Validator for build-in validation on the forms
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reactive-forms',
@@ -8,23 +9,19 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./reactive-forms.component.scss']
 })
 export class ReactiveFormsComponent implements OnInit {
-  // registrationForm = new FormGroup({
-  //   userName: new FormControl('Tudor'),
-  //   password: new FormControl(''),
-  //   confirmPassword: new FormControl(''),
-  //   address: new FormGroup({
-  //     city: new FormControl(''),
-  //     state: new FormControl(''),
-  //     postalCode: new FormControl('')
-  //   })
-  // });
+  // getter to shorten the conditions in the html template
+  // TODO same for city
+  get userName() {
+    return this.registrationForm.get('userName');
+  }
 
   registrationForm = this.fb.group({
-    userName: ['Tudor'],
+    userName: ['', Validators.required],
     password: [''],
     confirmPassword: [''],
     address: this.fb.group({
-      city: [''],
+      // use required and min-length error messages on city
+      city: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(7)]],
       state: [''],
       postalCode: []
     })
