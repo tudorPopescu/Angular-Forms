@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 // import FormGroup to initialize RF (reactive forms)
 // import Validator for build-in validation on the forms
 import { FormBuilder, Validators } from '@angular/forms';
+// import custom form validation function file
+import { forbiddenNameValidator } from '../shared/user-name.validator';
 
 @Component({
   selector: 'app-reactive-forms',
@@ -21,7 +23,7 @@ export class ReactiveFormsComponent implements OnInit {
     confirmPassword: [''],
     address: this.fb.group({
       // use required and min-length error messages on city
-      city: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(7)]],
+      city: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(7), forbiddenNameValidator(/password/)]],
       state: [''],
       postalCode: []
     })
