@@ -5,6 +5,8 @@ import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 // import custom form validation function file
 import { forbiddenNameValidator } from '../shared/user-name.validator';
 import { passwordValidator } from '../shared/password.validator';
+// import the registration service for the post request
+import { RegistrationService } from '../registration.service';
 
 @Component({
   selector: 'app-reactive-forms',
@@ -32,7 +34,7 @@ export class ReactiveFormsComponent implements OnInit {
     this.alternateEmails.push(this.fb.control(''));
   }
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private rs: RegistrationService) { }
 
   ngOnInit() {
     this.registrationForm = this.fb.group({
@@ -76,6 +78,15 @@ export class ReactiveFormsComponent implements OnInit {
         postalCode: 720207
       }
     })
+  }
+
+  onSubmit() {
+    console.log(this.registrationForm.value);
+    this.rs.register(this.registrationForm.value)
+      .subscribe(
+        response => {console.log('Success', response)},
+        error => console.error('Error!', error)
+      )
   }
 
 }

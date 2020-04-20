@@ -1,7 +1,7 @@
 <div class="mt-4">
   <h2>Registration form</h2>
 
-  <form [formGroup]="registrationForm">
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label>Username</label>
       <input
@@ -69,7 +69,7 @@
       </div>
     </div>
 
-    <button class="btn btn-primary" type="submit">Register</button>
+    <button [disabled]="!registrationForm.valid" class="btn btn-primary" type="submit">Register</button>
     <button class="btn btn-secondary ml-2" type="button" (click)="loadApiData()">Load API Data</button>
   </form>
 
