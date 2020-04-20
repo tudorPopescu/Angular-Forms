@@ -9,10 +9,14 @@ import { FormsModule } from '@angular/forms';
 
 // import HttpClientModule
 import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsComponent } from './reactive-forms/reactive-forms.component';
+import { TemplatedFormsComponent } from './templated-forms/templated-forms.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ReactiveFormsComponent,
+    TemplatedFormsComponent
   ],
   imports: [
     BrowserModule,
